@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+    <LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Raw X:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/x_value_view"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Raw Y:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/y_value_view"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Raw Z:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/z_value_view"
+                android:paddingBottom="10dp"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="LowPass X"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/x_lowpass_view"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="LowPass Y:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/y_lowpass_view"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="LowPass Z:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/z_lowpass_view"
+                android:paddingBottom="10dp"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="HighPass X"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/x_highpass_view"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="HighPass Y:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/y_highpass_view"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="HighPass Z:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/z_highpass_view"
+                android:paddingBottom="10dp"
+                android:textSize="24sp" />
+        </TableRow>
+        
+                <TableRow
+            android:id="@+id/tableRow11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Latitude:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/latitude_view"
+                android:textSize="24sp" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Longitude:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/longitude_view"
+                android:paddingBottom="10dp"
+                android:textSize="24sp" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Wifi Connection List"
+                android:paddingBottom="10dp"
+                android:textSize="24sp" />
+
+        </TableRow>
+
+    </TableLayout>
+    
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@android:color/darker_gray" />
+
+<Button
+    android:id="@+id/stop_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:text="@string/stop_service_string"
+    android:textSize="24sp" >
+
+    </Button>
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_above="@id/stop_button"
+        android:text="@string/start_service_string"
+        android:textSize="24sp" >
+    </Button>
+     
+   </LinearLayout>
+    </ScrollView>
+
