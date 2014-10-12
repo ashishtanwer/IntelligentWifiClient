@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+    <LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Accelerometer Raw X:"
+                 />
+
+            <TextView
+                android:id="@+id/x_value_view"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Accelerometer Raw Y:"
+                 />
+
+            <TextView
+                android:id="@+id/y_value_view"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Accelerometer Raw Z:"
+                 />
+
+            <TextView
+                android:id="@+id/z_value_view"
+                android:paddingBottom="10dp"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Gravity (LP) X"
+                 />
+
+            <TextView
+                android:id="@+id/x_lowpass_view"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Gravity (LP) Y:"
+                 />
+
+            <TextView
+                android:id="@+id/y_lowpass_view"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Gravity (LP) Z:"
+                 />
+
+            <TextView
+                android:id="@+id/z_lowpass_view"
+                android:paddingBottom="10dp"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Acceleration (HP) X:"
+                 />
+
+            <TextView
+                android:id="@+id/x_highpass_view"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Acceleration (HP) Y:"
+                 />
+
+            <TextView
+                android:id="@+id/y_highpass_view"
+                 />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Acceleration (HP) Z:"
+                 />
+
+            <TextView
+                android:id="@+id/z_highpass_view"
+                android:paddingBottom="10dp"
+                 />
+        </TableRow>
+        
+                <TableRow
+            android:id="@+id/tableRow11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="GPS Latitude:"
+                 />
+
+            <TextView
+                android:id="@+id/latitude_view" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="GPS Longitude:"
+                 />
+
+            <TextView
+                android:id="@+id/longitude_view"
+                android:paddingBottom="10dp"
+                 />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Wifi Connection List"
+                android:paddingBottom="10dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
+
+   </LinearLayout>
+    </ScrollView>
+

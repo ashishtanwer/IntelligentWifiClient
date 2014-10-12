@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/timeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/pickTime"
+        android:layout_width="314dp"
+        android:layout_height="wrap_content"
+        android:text="Choose Time"
+        android:textSize="24sp" />
+    
+    <TextView
+        android:id="@+id/wifitimeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="24sp" />
+
+     <Spinner
+        android:id="@+id/picktimewifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+    
+        <Button
+        android:id="@+id/submittimerule"
+        android:layout_width="314dp"
+        android:layout_height="wrap_content"
+        android:text="Add Time Rule"
+        android:textSize="24sp" />
+
+</LinearLayout>

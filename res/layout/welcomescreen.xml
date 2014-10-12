@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/viewrules_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewrules_string" />
+     
+    <Button
+	    android:id="@+id/addlocationrules_Button"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/addlocationrules_string" />
+    
+    <Button
+	    android:id="@+id/addaccelerationrules_Button"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/addaccelerationrules_string" />
+    
+    <Button
+	    android:id="@+id/addtimerules_Button"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/addtimerules_string" />
+    
+    <Button
+        android:id="@+id/savelocation_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/savelocation_string" />
+
+    <Button
+        android:id="@+id/viewstats_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewstats_string" />
+    
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_service_string"/>
+    
+    <Button
+        android:id="@+id/stop_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stop_service_string" />
+
+</LinearLayout>
