@@ -12,7 +12,7 @@ public final class RulesContract {
 	public static final String DATA_TABLE = "data_table";
 
 	private static final Uri BASE_URI = Uri
-			.parse("content://com.android.intelligentwifi.RulesContentProvider/");
+			.parse("content://com.wingslab.intelligentwifi.RulesContentProvider/");
 
 	// The URI for this table.
 	public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_URI,

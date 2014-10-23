@@ -2,7 +2,9 @@ package com.wingslab.intelligentwifi;
 
 
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 
 import com.wingslab.intelligentwifi.R;
@@ -33,6 +35,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class AddTimeRulesActivity extends Activity {
 
@@ -80,8 +83,9 @@ public class AddTimeRulesActivity extends Activity {
 
 				ContentValues values = new ContentValues();
 
+				String record= "T"+mTimeDisplay.getText().toString()+"-->"+spinner.getSelectedItem().toString();
 				// Insert first record
-				values.put(RulesContract.DATA, "Record1");
+				values.put(RulesContract.DATA, record);
 				Uri firstRecordUri = contentResolver.insert(RulesContract.CONTENT_URI, values);
 
 				values.clear();
@@ -90,9 +94,8 @@ public class AddTimeRulesActivity extends Activity {
 				Cursor c = contentResolver.query(RulesContract.CONTENT_URI, null, null, null,
 						null);
 
-				//setListAdapter(new SimpleCursorAdapter(this, R.layout.list_layout, c,
-						//DataContract.ALL_COLUMNS, new int[] { R.id.idString,
-								//R.id.data }, 0));
+				Toast.makeText(AddTimeRulesActivity.this,"Time Rule Added:"+record, 
+						Toast.LENGTH_SHORT).show();
 		
 			}
 		});
@@ -165,12 +168,15 @@ public class AddTimeRulesActivity extends Activity {
 	class WifiScanReceiver extends BroadcastReceiver {
 		      public void onReceive(Context c, Intent intent) {
 				List<ScanResult> wifiScanList = mWifiManager.getScanResults();
-		         wifiString = new String[wifiScanList.size()];
+		         wifiString = new String[wifiScanList.size()+1];
+		         wifiString[0] = "MobileData";
 		         for(int i = 0; i < wifiScanList.size(); i++){
-		            wifiString[i] = ((wifiScanList.get(i)).toString()).split(",")[0];
+		            wifiString[i+1] = ((wifiScanList.get(i)).toString()).split(",")[0];
 		         }
+		         
+		         String[] uniquewifiString = new HashSet<String>(Arrays.asList(wifiString)).toArray(new String[0]);
 		         spinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
-		         android.R.layout.simple_list_item_1,wifiString));
+		         android.R.layout.simple_list_item_1,uniquewifiString));
 		         
 		      }
 		}

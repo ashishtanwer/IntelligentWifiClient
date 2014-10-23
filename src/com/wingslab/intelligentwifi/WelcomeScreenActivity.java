@@ -40,6 +40,17 @@ public class WelcomeScreenActivity extends Activity {
 
 			}
 		});
+
+		final Button addvelocityrulesButton = (Button) findViewById(R.id.addvelocityrules_Button);
+		addvelocityrulesButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+
+					Intent statsIntent = new Intent(WelcomeScreenActivity.this,
+							AddVelocityRulesActivity.class);
+					startActivity(statsIntent);
+
+			}
+		});
 		
 		final Button addaccelerationrulesButton = (Button) findViewById(R.id.addaccelerationrules_Button);
 		addaccelerationrulesButton.setOnClickListener(new OnClickListener() {
@@ -69,6 +80,17 @@ public class WelcomeScreenActivity extends Activity {
 
 					Intent statsIntent = new Intent(WelcomeScreenActivity.this,
 							SaveLocationActivity.class);
+					startActivity(statsIntent);
+
+			}
+		});
+		
+		final Button viewlocationButton = (Button) findViewById(R.id.viewlocation_Button);
+		viewlocationButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+
+					Intent statsIntent = new Intent(WelcomeScreenActivity.this,
+							ViewLocationActivity.class);
 					startActivity(statsIntent);
 
 			}

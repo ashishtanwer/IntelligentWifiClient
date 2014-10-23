@@ -1,7 +1,5 @@
 package com.wingslab.intelligentwifi;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import com.wingslab.intelligentwifi.R;
@@ -20,12 +18,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -37,69 +36,55 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddAccelerationRulesActivity extends Activity implements SensorEventListener {
+public class AddVelocityRulesActivity extends Activity implements SensorEventListener,LocationListener{
 	
 	@SuppressWarnings("unused")
-	private static final String TAG = "AddAccelerationRulesActivity";
+	private static final String TAG = "AddVelovityRulesActivity";
 	
     WifiManager mWifiManager;
     WifiScanReceiver mWifiScanReceiver;
 	String wifiString[];
 	Spinner spinner;
-	TextView accelerationText;
-	TextView currentaccelerationText;
+	TextView velocityText;
+	TextView currentvelocityText;
 	SeekBar seekbar;
-	Button submitacceleraion;
+	Button submitvelocity;
 	int progressChanged;
-	
-	private static final int NOTIFICATION_ID = 1;
-	  
-	// References to SensorManager and accelerometer
-	private SensorManager mSensorManager;
-	private Sensor mAccelerometer;
-	
-	// Filtering constant
-
-	private final float mAlpha = 0.8f;
-
-	// Arrays for storing filtered values
-	private float[] mGravity = new float[3];
-	private float[] mAccel = new float[3];
-	private double mAccelResult=0.0; 
-
-	private int mStartID;
-	private long mLastUpdate;
+	LocationManager mLocationManager;
+	Location location;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.addaccelerationrules);
+		setContentView(R.layout.addvelocityrules);
 
-		spinner = (Spinner) findViewById(R.id.pickaccelerationwifi);
-		accelerationText = (TextView) findViewById(R.id.acceleraionDisplay);
-		currentaccelerationText = (TextView) findViewById(R.id.currentaccelerationDisplay);
+		spinner = (Spinner) findViewById(R.id.pickvelocitywifi);
+		velocityText = (TextView) findViewById(R.id.velocityDisplay);
+		currentvelocityText = (TextView) findViewById(R.id.currentvelocityDisplay);
 		seekbar = (SeekBar) findViewById(R.id.seekBar1);
-		submitacceleraion = (Button) findViewById(R.id.submitacceleraionrule);
+		submitvelocity = (Button) findViewById(R.id.submitvelocityrule);
 		
 		//wifiList = (ListView)findViewById(R.id.listView1);
 		mWifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
 		mWifiScanReceiver = new WifiScanReceiver();
 		mWifiManager.startScan();
 		
-		// Get reference to SensorManager
-		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-		// Get reference to Accelerometer
-		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-		mLastUpdate = System.currentTimeMillis();
+		// Get reference to LocationManager
+		mLocationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		
-		// Register listener
-		mSensorManager.registerListener(this, mAccelerometer,
-				SensorManager.SENSOR_DELAY_UI);
+	    String provider = LocationManager.GPS_PROVIDER;
+        mLocationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER, 0, 0, this);
+	    
+	    location = mLocationManager.getLastKnownLocation(provider);
+	    currentvelocityText.setText(String.valueOf(0));
+		if(location!=null)
+		{
+			currentvelocityText.setText(String.valueOf(location.getLatitude()));
+		}
 		
-		submitacceleraion.setOnClickListener(new OnClickListener() {
+		submitvelocity.setOnClickListener(new OnClickListener() {
 			public void onClick(View src) {
 				
 			      
@@ -107,7 +92,7 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 
 				ContentValues values = new ContentValues();
 				
-				String record= "A"+accelerationText.getText().toString()+"-->"+spinner.getSelectedItem().toString();
+				String record= "V"+velocityText.getText().toString()+"#"+spinner.getSelectedItem().toString();
 
 				// Insert record
 				values.put(RulesContract.DATA, record);
@@ -119,7 +104,7 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 				Cursor c = contentResolver.query(RulesContract.CONTENT_URI, null, null, null,
 						null);
 				
-				Toast.makeText(AddAccelerationRulesActivity.this,"Acceleration Rule Added:"+record, 
+				Toast.makeText(AddVelocityRulesActivity.this,"Velocity Rule Added:"+record, 
 						Toast.LENGTH_SHORT).show();
 	
 			}
@@ -131,7 +116,7 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
 				progressChanged = progress;
-				accelerationText.setText(String.valueOf(progress));
+				velocityText.setText(String.valueOf(progress));
 			}
 
 			public void onStartTrackingTouch(SeekBar seekBar) {
@@ -139,7 +124,7 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 			}
 
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				Toast.makeText(AddAccelerationRulesActivity.this,"seek bar progress:"+progressChanged, 
+				Toast.makeText(AddVelocityRulesActivity.this,"seek bar progress:"+progressChanged, 
 						Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -149,7 +134,8 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                3600000, 1000, this);
 	    registerReceiver(mWifiScanReceiver, new IntentFilter(
 	    	      WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
@@ -159,7 +145,7 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 	@Override
 	protected void onPause() {
 		super.onPause();
-
+		mLocationManager.removeUpdates(this);
 		unregisterReceiver(mWifiScanReceiver);
 	}
 	
@@ -167,14 +153,12 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
     class WifiScanReceiver extends BroadcastReceiver {
 		      public void onReceive(Context c, Intent intent) {
 				List<ScanResult> wifiScanList = mWifiManager.getScanResults();
-		         wifiString = new String[wifiScanList.size()+1];
-		         wifiString[0] = "MobileData";
+		         wifiString = new String[wifiScanList.size()];
 		         for(int i = 0; i < wifiScanList.size(); i++){
-		            wifiString[i+1] = ((wifiScanList.get(i)).toString()).split(",")[0];
+		            wifiString[i] = ((wifiScanList.get(i)).toString()).split(",")[0];
 		         }
-		         String[] uniquewifiString = new HashSet<String>(Arrays.asList(wifiString)).toArray(new String[0]);
 		         spinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
-		         android.R.layout.simple_list_item_1,uniquewifiString));
+		         android.R.layout.simple_list_item_1,wifiString));
 		         
 		      }
 		}
@@ -182,35 +166,8 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-
-		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-
-			long actualTime = System.currentTimeMillis();
-
-			if (actualTime - mLastUpdate > 5000) {
-
-				mLastUpdate = actualTime;
-
-				float rawX = event.values[0];
-				float rawY = event.values[1];
-				float rawZ = event.values[2];
-				
-				// Apply low-pass filter
-				mGravity[0] = lowPass(rawX, mGravity[0]);
-				mGravity[1] = lowPass(rawY, mGravity[1]);
-				mGravity[2] = lowPass(rawZ, mGravity[2]);
-
-				// Apply high-pass filter
-				mAccel[0] = highPass(rawX, mGravity[0]);
-				mAccel[1] = highPass(rawY, mGravity[1]);
-				mAccel[2] = highPass(rawZ, mGravity[2]);
-				
-				mAccelResult=Math.sqrt(Math.pow(mAccel[0],2)+Math.pow(mAccel[1],2)+Math.pow(mAccel[2],2));
-				
-				Log.d(TAG,  String.valueOf(mAccelResult));
-				currentaccelerationText.setText(String.valueOf(mAccelResult));	
-			}
-		}
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -218,15 +175,28 @@ public class AddAccelerationRulesActivity extends Activity implements SensorEven
 		// TODO Auto-generated method stub
 		
 	}
-	
-	// Deemphasize transient forces
-	private float lowPass(float current, float gravity) {
-		return gravity * mAlpha + current * (1 - mAlpha);
+
+	@Override
+	public void onLocationChanged(Location location) {
+		currentvelocityText.setText(String.valueOf(location.getSpeed()));
+		
 	}
 
-	// Deemphasize constant forces
-	private float highPass(float current, float gravity) {
-		return current - gravity;
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
 	}
 }

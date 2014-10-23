@@ -11,12 +11,10 @@
         android:text=""
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/pickLocation"
-        android:layout_width="314dp"
-        android:layout_height="wrap_content"
-        android:text="Choose Location"
-        android:textSize="24sp" />
+    <Spinner
+        android:id="@+id/picklocationspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     
     <TextView
         android:id="@+id/wifilocationDisplay"

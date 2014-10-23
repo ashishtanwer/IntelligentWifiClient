@@ -6,22 +6,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Acceleration"
+        android:text="Current Velocity"
         android:textSize="24sp" />
     <TextView
-        android:id="@+id/currentaccelerationDisplay"
+        android:id="@+id/currentvelocityDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="24sp" />
-        
+    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose Acceleraion"
+        android:text="Choose Velocity"
         android:textSize="24sp" />
     <TextView
-        android:id="@+id/acceleraionDisplay"
+        android:id="@+id/velocityDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -33,23 +33,23 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/wifiacceleraionDisplay"
+        android:id="@+id/wifivelocityDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="24sp" />
 
         <Spinner
-        android:id="@+id/pickaccelerationwifi"
+        android:id="@+id/pickvelocitywifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp" />
     
         <Button
-        android:id="@+id/submitacceleraionrule"
+        android:id="@+id/submitvelocityrule"
         android:layout_width="314dp"
         android:layout_height="wrap_content"
-        android:text="Add Acceleraion Rule"
+        android:text="Add Velocity Rule"
         android:textSize="24sp" />
 
 </LinearLayout>

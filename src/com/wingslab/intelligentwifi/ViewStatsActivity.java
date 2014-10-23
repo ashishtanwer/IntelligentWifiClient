@@ -1,5 +1,8 @@
 package com.wingslab.intelligentwifi;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.wingslab.intelligentwifi.R;
 
@@ -41,10 +44,12 @@ public class ViewStatsActivity extends Activity implements
     WifiScanReceiver mWifiScanReceiver;
 	String wifiString[];
 	Spinner spinner;
+	private Location location;
 
 	// Filtering constant
 
 	private final float mAlpha = 0.8f;
+	private double mAccelResult=0.0;
 
 	// Arrays for storing filtered values
 	private float[] mGravity = new float[3];
@@ -52,7 +57,7 @@ public class ViewStatsActivity extends Activity implements
 
 	private TextView mXValueView, mYValueView, mZValueView, 
 					mXGravityView, mYGravityView, mZGravityView, 
-					mXAccelView, mYAccelView, mZAccelView, mLongitudeView, mLatitudeView;
+					mXAccelView, mYAccelView, mZAccelView, mLongitudeView, mLatitudeView,mspeedView,maccelerationView;
 
 	private long mLastUpdate;
 
@@ -76,12 +81,27 @@ public class ViewStatsActivity extends Activity implements
 		
 		mLatitudeView = (TextView) findViewById(R.id.latitude_view);
 		mLongitudeView = (TextView) findViewById(R.id.longitude_view);
+		mspeedView = (TextView) findViewById(R.id.speed_view);
+		maccelerationView = (TextView) findViewById(R.id.acceleration_view);
 
 		// Get reference to SensorManager
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		
 		// Get reference to LocationManager
 		mLocationManager=(LocationManager)getSystemService(LOCATION_SERVICE);
+		
+	    String provider = LocationManager.GPS_PROVIDER;
+        mLocationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER, 0, 0, this);
+	    
+	    location = mLocationManager.getLastKnownLocation(provider);
+	    mspeedView.setText(String.valueOf(0));
+		if(location!=null)
+		{
+			mLatitudeView.setText(String.valueOf(location.getLatitude()));
+			mLongitudeView.setText(String.valueOf(location.getLongitude()));
+			mspeedView.setText(String.valueOf(location.getSpeed()));			
+		}
 
 		// Get reference to Accelerometer
 		if (null == (mAccelerometer = mSensorManager
@@ -104,14 +124,12 @@ public class ViewStatsActivity extends Activity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 		mSensorManager.registerListener(this, mAccelerometer,
 				SensorManager.SENSOR_DELAY_UI);
 		mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 3600000, 1000, this);
 	    registerReceiver(mWifiScanReceiver, new IntentFilter(
 	    	      WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-
 	}
 
 	// Unregister listener
@@ -127,9 +145,7 @@ public class ViewStatsActivity extends Activity implements
 	// Process new reading
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-
 			long actualTime = System.currentTimeMillis();
 
 			if (actualTime - mLastUpdate > 500) {
@@ -149,6 +165,8 @@ public class ViewStatsActivity extends Activity implements
 				mAccel[0] = highPass(rawX, mGravity[0]);
 				mAccel[1] = highPass(rawY, mGravity[1]);
 				mAccel[2] = highPass(rawZ, mGravity[2]);
+				
+				mAccelResult=Math.sqrt(Math.pow(mAccel[0],2)+Math.pow(mAccel[1],2)+Math.pow(mAccel[2],2));
 
 				mXValueView.setText(String.valueOf(rawX));
 				mYValueView.setText(String.valueOf(rawY));
@@ -161,6 +179,8 @@ public class ViewStatsActivity extends Activity implements
 				mXAccelView.setText(String.valueOf(mAccel[0]));
 				mYAccelView.setText(String.valueOf(mAccel[1]));
 				mZAccelView.setText(String.valueOf(mAccel[2]));
+				
+				maccelerationView.setText(String.valueOf(mAccelResult));
 
 			}
 		}
@@ -169,7 +189,6 @@ public class ViewStatsActivity extends Activity implements
 	// Deemphasize transient forces
 	private float lowPass(float current, float gravity) {
 		return gravity * mAlpha + current * (1 - mAlpha);
-
 	}
 
 	// Deemphasize constant forces
@@ -185,9 +204,9 @@ public class ViewStatsActivity extends Activity implements
 
 	@Override
 	public void onLocationChanged(Location location) {
-
 		mLatitudeView.setText(String.valueOf(location.getLatitude()));
 		mLongitudeView.setText(String.valueOf(location.getLongitude()));
+		mspeedView.setText(String.valueOf(location.getSpeed()));
 		
 	}
 
@@ -209,12 +228,16 @@ public class ViewStatsActivity extends Activity implements
    class WifiScanReceiver extends BroadcastReceiver {
 	      public void onReceive(Context c, Intent intent) {
 			List<ScanResult> wifiScanList = mWifiManager.getScanResults();
-	         wifiString = new String[wifiScanList.size()];
+	         wifiString = new String[wifiScanList.size()+1];
+	         wifiString[0] = "MobileData";
 	         for(int i = 0; i < wifiScanList.size(); i++){
-	            wifiString[i] = ((wifiScanList.get(i)).toString()).split(",")[0];
+	            wifiString[i+1] = ((wifiScanList.get(i)).toString()).split(",")[0];
 	         }
+	         
+	         String[] uniquewifiString = new HashSet<String>(Arrays.asList(wifiString)).toArray(new String[0]);
+	         //String[] wifiStringunique =uniquewifiString;
 	         spinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
-	         android.R.layout.simple_list_item_1,wifiString));
+	         android.R.layout.simple_list_item_1,uniquewifiString));
 	         
 	      }
 	}

@@ -13,6 +13,8 @@
     <string name="addaccelerationrules_string">Add Acceleration Based Rule</string>
     <string name="addtimerules_string">Add Time Based Rule</string>
     <string name="save_location_string">Save Location</string>
-    
+    <string name="viewlocation_string">View Locations</string>
+    <string name="locationnmae_string">Name Current Locations</string>
+    <string name="addvelocityrules_string">Add Velocity Based Rule</string>
 
 </resources>

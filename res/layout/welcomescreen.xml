@@ -17,6 +17,12 @@
 	    android:text="@string/addlocationrules_string" />
     
     <Button
+	    android:id="@+id/addvelocityrules_Button"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/addvelocityrules_string" />
+    
+    <Button
 	    android:id="@+id/addaccelerationrules_Button"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
@@ -27,6 +33,12 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:text="@string/addtimerules_string" />
+    
+    <Button
+        android:id="@+id/viewlocation_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewlocation_string" />
     
     <Button
         android:id="@+id/savelocation_Button"
